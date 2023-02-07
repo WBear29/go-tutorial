@@ -12,19 +12,8 @@ import (
 )
 
 const (
-	chapter = "1-5"
+	chapter = "1-6"
 )
-
-func worker(ctx context.Context, doneCh chan<- bool) {
-	tr := otel.Tracer("worker")
-	_, span := tr.Start(ctx, chapter+":worker:goroutine")
-	defer span.End()
-
-	fmt.Println("working...")
-	time.Sleep(time.Duration(1) * time.Second)
-
-	doneCh <- true
-}
 
 func main() {
 	tp, err := tracer.NewTracerProvider("http://localhost:14268/api/traces")
