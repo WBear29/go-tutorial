@@ -74,5 +74,5 @@ func main() {
 	fmt.Printf("Today's your lucky number is %d!\n", num)
 
 	// 使い終わったチャネルはcloseする
-	close(c)
+	close(ch)
 }
