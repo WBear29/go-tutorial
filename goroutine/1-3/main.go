@@ -16,7 +16,7 @@ const (
 	chapter = "1-3"
 )
 
-func getLuckyNum(ctx context.Context, c chan<- int) {
+func getLuckyNum(ctx context.Context, ch chan<- int) {
 	tr := otel.Tracer("gorountine-getLuckyNum")
 	_, span := tr.Start(ctx, chapter+":goroutine")
 	defer span.End()
@@ -27,7 +27,7 @@ func getLuckyNum(ctx context.Context, c chan<- int) {
 	time.Sleep(time.Duration(rand.Intn(3000)) * time.Millisecond)
 
 	num := rand.Intn(10)
-	c <- num
+	ch <- num
 }
 
 func main() {
@@ -54,10 +54,22 @@ func main() {
 
 	fmt.Println("what is today's lucky number?")
 
-	c := make(chan int)    // チャネルを定義
-	go getLuckyNum(ctx, c) // goroutineで実行
+	/**
+	チャネルの作り方
+	1. 基本
+	ch := make(chan int)
+	2. バッファあり
+	ch := make(chan string, 2)
+	3. 送信専用チャネル(バッファあり)
+	make(chan<= int, 10)
+	4. 受信専用チャネル(バッファあり)
+	make(<-chan int, 10)
+	**/
 
-	num := <-c
+	ch := make(chan int)    // チャネルを定義
+	go getLuckyNum(ctx, ch) // goroutineで実行
+
+	num := <-ch
 
 	fmt.Printf("Today's your lucky number is %d!\n", num)
 
