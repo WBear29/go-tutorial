@@ -18,3 +18,4 @@ http://localhost:16686
 
 - [Go での並行処理を徹底解剖！](https://zenn.dev/hsaki/books/golang-concurrency/viewer/intro)
 - [opentelemetry-go/example/jaeger](https://github.com/open-telemetry/opentelemetry-go/blob/main/example/jaeger/main.go)
+- [サンプルで学ぶGo言語](https://www.spinute.org/go-by-example/)
