@@ -58,6 +58,31 @@ func onlySendChanel(ctx context.Context, ch chan<- int) {
 	close(ch)
 }
 
+func getOnlyReceiveChanel(ctx context.Context) <-chan int {
+	tr := otel.Tracer("getOnlyReceiveChanel")
+	_, span := tr.Start(ctx, chapter+":getOnlyReceiveChanel:sequential")
+	defer span.End()
+	var genCh = make(chan int)
+	go func() {
+		var primes = make([]int, 0)
+		for k := 2; ; k++ {
+			check := true
+			for _, value := range primes {
+				if k%value == 0 {
+					check = false
+					break
+				}
+			}
+			if check {
+				primes = append(primes, k)
+				genCh <- k
+			}
+		}
+		close(genCh)
+	}()
+	return genCh
+}
+
 func main() {
 	tp, err := tracer.NewTracerProvider("http://localhost:14268/api/traces")
 	if err != nil {
@@ -94,10 +119,19 @@ func main() {
 
 	ch := make(chan int, 3) // バッファありチャネルを定義
 	fmt.Println("現在のバッファサイズは", cap(ch))
+	// ex) 1.
 	// overChanelBuf(ctx, ch)
-	openChanelBuf(ctx, ch)
-	go onlySendChanel(ctx, ch)
-	for i := range ch {
-		fmt.Println(i)
+	// ex) 2.
+	// openChanelBuf(ctx, ch)
+	// ex) 3.
+	// go onlySendChanel(ctx, ch)
+	// for i := range ch {
+	// 	fmt.Println(i)
+	// }
+	// ex) 4.
+	receiveCh := getOnlyReceiveChanel(ctx)
+	for i := 0; i < 999; i++ {
+		<-receiveCh
 	}
+	fmt.Println(<-receiveCh)
 }
