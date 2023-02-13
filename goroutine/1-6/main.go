@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	chapter = "1-7"
+	chapter = "1-6"
 )
 
 func main() {
