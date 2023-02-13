@@ -20,9 +20,13 @@ func overChanelBuf(ctx context.Context, ch chan int) {
 	_, span := tr.Start(ctx, chapter+":overChanelBuf:sequential")
 	defer span.End()
 	ch <- 1
+	fmt.Println("send 1")
 	ch <- 2
+	fmt.Println("send 2")
 	ch <- 3
-	ch <- 4
+	fmt.Println("send 3")
+	ch <- 4 // block
+	fmt.Println("send 4")
 	fmt.Println("要素数は", len(ch))
 
 	i := <-ch
@@ -115,12 +119,13 @@ func main() {
 	make(chan<= int, 10)
 	4. 受信専用チャネル(バッファあり)
 	make(<-chan int, 10)
+	チャネルの状態とoperation: https://docs.google.com/presentation/d/1WDVYRovp4eN_ESUNoZSrS_9WzJGz_-zzvaIF4BgzNws/edit#slide=id.gd0f0d38d56_0_1329
 	**/
 
 	ch := make(chan int, 3) // バッファありチャネルを定義
 	fmt.Println("現在のバッファサイズは", cap(ch))
 	// ex) 1.
-	// overChanelBuf(ctx, ch)
+	overChanelBuf(ctx, ch)
 	// ex) 2.
 	// openChanelBuf(ctx, ch)
 	// ex) 3.
@@ -129,9 +134,10 @@ func main() {
 	// 	fmt.Println(i)
 	// }
 	// ex) 4.
-	receiveCh := getOnlyReceiveChanel(ctx)
-	for i := 0; i < 999; i++ {
-		<-receiveCh
-	}
-	fmt.Println(<-receiveCh)
+	// receiveCh := getOnlyReceiveChanel(ctx)
+	// for i := 0; i < 999; i++ {
+	// 	<-receiveCh
+	// }
+	// fmt.Println(<-receiveCh)
+	fmt.Println("Done")
 }

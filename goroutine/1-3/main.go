@@ -30,6 +30,14 @@ func getLuckyNum(ctx context.Context, ch chan<- int) {
 	ch <- num
 }
 
+func checkCloseCh(ok bool) {
+	if ok {
+		fmt.Println("ch is open")
+	} else {
+		fmt.Println("ch is closed")
+	}
+}
+
 func main() {
 	tp, err := tracer.NewTracerProvider("http://localhost:14268/api/traces")
 	if err != nil {
@@ -64,15 +72,25 @@ func main() {
 	make(chan<= int, 10)
 	4. 受信専用チャネル(バッファあり)
 	make(<-chan int, 10)
+	チャネルの状態とoperation: https://docs.google.com/presentation/d/1WDVYRovp4eN_ESUNoZSrS_9WzJGz_-zzvaIF4BgzNws/edit#slide=id.gd0f0d38d56_0_1329
 	**/
 
 	ch := make(chan int)    // チャネルを定義
 	go getLuckyNum(ctx, ch) // goroutineで実行
 
-	num := <-ch
-
+	num, ok := <-ch
+	checkCloseCh(ok)
 	fmt.Printf("Today's your lucky number is %d!\n", num)
-
+	
 	// 使い終わったチャネルはcloseする
 	close(ch)
+	// クローズされたチャネルから受け取る
+	num, ok = <-ch
+	fmt.Printf("Today's your lucky number is %d!\n", num)
+	checkCloseCh(ok)
+
+	// クローズされたチャネルにSend
+	// ch <- 3 // panic
+	// クローズされたチャネルをClose
+	// close(ch) // panic
 }

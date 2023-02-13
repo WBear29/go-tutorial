@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	chapter = "1-6"
+	chapter = "1-7"
 )
 
 func main() {
@@ -38,47 +38,33 @@ func main() {
 	defer span.End()
 
 	/**
-	チャネルの使い方:
-	指定した時間待つ
-	link: https://www.spinute.org/go-by-example/timers.html
+	複数のチャネルからの受信を制御する
 	**/
 
-	// timer1 := time.NewTimer(2 * time.Second)
-	// <-timer1.C
-	// fmt.Println("Timer 1 fired")
+	c1 := make(chan string)
+	c2 := make(chan string)
 
-	// timer2 := time.NewTimer(time.Second)
-	// go func() {
-	// 	<-timer2.C
-	// 	fmt.Println("Timer 2 fired")
-	// }()
-	// stop2 := timer2.Stop() // timer2を途中で停止
-	// if stop2 {
-	// 	fmt.Println("Timer 2 stopped")
-	// }
-	// time.Sleep(2 * time.Second)
-
-	/**
-	チャネルの使い方
-	定期的に繰り返し実行
-	link: https://www.spinute.org/go-by-example/tickers.html
-	**/
-
-	ticker := time.NewTicker(500 * time.Millisecond)
-	done := make(chan bool)
 	go func() {
-		for {
-			select {
-			case <-done:
-				return
-			case t := <-ticker.C:
-				fmt.Println("Tick at", t)
-			}
-		}
+		tr := otel.Tracer("one")
+		_, span := tr.Start(ctx, chapter+":one:goroutine")
+		defer span.End()
+		time.Sleep(1 * time.Second)
+		c1 <- "one"
+	}()
+	go func() {
+		tr := otel.Tracer("two")
+		_, span := tr.Start(ctx, chapter+":two:goroutine")
+		defer span.End()
+		time.Sleep(2 * time.Second)
+		c2 <- "two"
 	}()
 
-	time.Sleep(1600 * time.Millisecond)
-	ticker.Stop()
-	done <- true
-	fmt.Println("Ticker stopped")
+	for i := 0; i < 2; i++ {
+		select {
+		case msg1 := <-c1:
+			fmt.Println("received", msg1)
+		case msg2 := <-c2:
+			fmt.Println("received", msg2)
+		}
+	}
 }
