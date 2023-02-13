@@ -53,8 +53,31 @@
    * time.Sleepでもできるが途中でキャンセルができる
 1. time.NewTickerで処理の定期実行
 
-## 参考文献
+### 1-8 atomicで並行処理での安全なインクリメント
 
+* アトミック性:
+   * それが操作されている特定のコンテキストの中では、分割不能あるいは中断不可であること。
+      * 分割不能あるいは中断不可ということは、そのコンテキストの全体で処理をしていて、その他の何かが同時には起きないということ。
+
+atomicを利用することで、並行処理で安全に変数を扱う
+
+1. GOMAXPROCS=1 go run main.go
+   * 全ての関数が同じ値を出力
+1. GOMAXPROCS=4 go run main.go
+   * useIncrementOperatorのみ値が変わる
+1. go run -race main.go 
+   * 競合を検知
+1. ベンチマーク確認
+   * GOMAXPROCS=1 go test -bench .
+   * GOMAXPROCS=4 go test -bench .
+   * GOMAXPROCS=10 go test -bench .
+
+## ToDo
+* Tracerの記述方法確認
+
+## 参考文献
+- [Go言語による並行処理](https://www.oreilly.co.jp/books/9784873118468/)
 - [Go での並行処理を徹底解剖！](https://zenn.dev/hsaki/books/golang-concurrency/viewer/intro)
 - [opentelemetry-go/example/jaeger](https://github.com/open-telemetry/opentelemetry-go/blob/main/example/jaeger/main.go)
 - [サンプルで学ぶ Go 言語](https://www.spinute.org/go-by-example/)
+- [sync/atomic パッケージを使って数値を安全にカウントアップする](https://qiita.com/yuya_takeyama/items/98e5a9fe6786df11c8a7)
