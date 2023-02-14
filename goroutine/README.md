@@ -59,7 +59,8 @@
    * それが操作されている特定のコンテキストの中では、分割不能あるいは中断不可であること。
       * 分割不能あるいは中断不可ということは、そのコンテキストの全体で処理をしていて、その他の何かが同時には起きないということ。
 
-atomicを利用することで、並行処理で安全に変数を扱う
+atomicを利用することで、並行処理で安全に変数を扱う。
+
 
 1. GOMAXPROCS=1 go run main.go
    * 全ての関数が同じ値を出力
@@ -68,9 +69,13 @@ atomicを利用することで、並行処理で安全に変数を扱う
 1. go run -race main.go 
    * 競合を検知
 1. ベンチマーク確認
-   * GOMAXPROCS=1 go test -bench .
-   * GOMAXPROCS=4 go test -bench .
-   * GOMAXPROCS=10 go test -bench .
+   * GOMAXPROCS=1 go test -bench . -benchmem
+   * GOMAXPROCS=4 go test -bench . -benchmem
+   * GOMAXPROCS=10 go test -bench . -benchmem
+
+   ```
+   実行関数名 実行回数 1回あたりの実行に掛かる時間 一回あたりのアロケーションで確保した容量(B/op) 一回あたりのアロケーション回数(allocs/op)
+   ```
 
 ## ToDo
 * Tracerの記述方法確認
