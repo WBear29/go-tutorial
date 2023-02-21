@@ -38,10 +38,9 @@
 
 ### ineffassign ✅
 
-変数への不要な代入が行われている箇所を検出する。
-
-[参考: golangci-lintに搭載されている linter を学ぶ-ineffassign](https://zenn.dev/sanpo_shiho/books/61bc1e1a30bf27/viewer/642fe9#gosimple)
-`ineffectual`(効果がない)と`assigned`(割り当て)から命名されていると思われる。
+変数への不要な代入が行われている箇所を検出する。  
+[参考: golangci-lintに搭載されている linter を学ぶ-ineffassign](https://zenn.dev/sanpo_shiho/books/61bc1e1a30bf27/viewer/642fe9#gosimple)  
+`ineffectual`(効果がない)と`assigned`(割り当て)から命名されていると思われる。  
 不要な割り当てを検出できるため、推奨。
 
 [🔗](https://github.com/gordonklaus/ineffassign), ⚙: なし
