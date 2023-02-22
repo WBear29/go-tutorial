@@ -79,3 +79,7 @@ CI上でビルドステージの配置によってはなくても良いため、
 
 [🔗](https://github.com/dominikh/go-tools/tree/master/unused), ⚙: なし
 
+## 参考文献
+
+* [golangci-lint](https://github.com/golangci/golangci-lint)
+* [golangci-lintに搭載されている linter を学ぶ](https://zenn.dev/sanpo_shiho/books/61bc1e1a30bf27/viewer/642fe9)
