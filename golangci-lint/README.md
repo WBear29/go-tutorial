@@ -104,6 +104,13 @@ func main() {
 
 [🔗](https://github.com/alingse/asasalint), [⚙](https://golangci-lint.run/usage/linters/#asasalint)
 
+#### asciicheck ✅
+
+コードに非 ASCII 識別子が含まれている箇所を検出する。
+文字コードチェックのため、推奨。
+
+[🔗](https://github.com/tdakkota/asciicheck), ⚙: なし
+
 ## 参考文献
 
 * [golangci-lint](https://github.com/golangci/golangci-lint)
