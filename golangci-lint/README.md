@@ -79,6 +79,31 @@ CI上でビルドステージの配置によってはなくても良いため、
 
 [🔗](https://github.com/dominikh/go-tools/tree/master/unused), ⚙: なし
 
+### デフォルトは無効
+
+#### asasalint ✅
+
+anyの可変長(...any)を引数で受け取る関数に[]anyを渡している箇所を検出する。
+バグを検出できるため、推奨。
+
+[fmt.Printf](https://pkg.go.dev/fmt#Printf)
+
+```golang
+package main
+
+import "fmt"
+
+func main() {
+	msg := []any{"hello", "world"}
+	// p1 [hello world] p2 %!s(MISSING)
+	fmt.Printf("p1 %s p2 %s\n", msg)
+	// p1 hello p2 world
+	fmt.Printf("p1 %s p2 %s\n", msg...)
+}
+```
+
+[🔗](https://github.com/alingse/asasalint), [⚙](https://golangci-lint.run/usage/linters/#asasalint)
+
 ## 参考文献
 
 * [golangci-lint](https://github.com/golangci/golangci-lint)
