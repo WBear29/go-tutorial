@@ -106,10 +106,17 @@ func main() {
 
 #### asciicheck ✅
 
-コードに非 ASCII 識別子が含まれている箇所を検出する。
-文字コードチェックのため、推奨。
+コードに非 ASCII 識別子が含まれている箇所を検出する。  
+非推奨文字コードチェックのため、推奨。
 
 [🔗](https://github.com/tdakkota/asciicheck), ⚙: なし
+
+#### bidichk ✅
+
+危険と定義されている Unicode 文字シーケンスを検出する。  
+非推奨文字コードチェックのため、推奨。
+
+[🔗](https://github.com/alingse/asasalint), [⚙](https://golangci-lint.run/usage/linters/#asasalint)
 
 ## 参考文献
 
