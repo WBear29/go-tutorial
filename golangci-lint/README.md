@@ -133,8 +133,14 @@ httpのレスポンスbodyがCloseされていない箇所を検出する。
 golangで推奨されていない、contextを構造体のフィールドに持っている箇所を検出する。  
 公式非推奨の構文のため、推奨。contextは第一引数に渡す形式で統一しておくのが良いと思われる。  
 
-
 [🔗](https://github.com/sivchari/containedctx), ⚙: なし
+
+#### contextcheck ✅
+
+contextが適切に継承されていない関数の呼び出しを検出します。  
+contextを意図通りに渡せていない箇所を検出できるため、推奨。
+
+[🔗](https://github.com/kkHAIKE/contextcheck), ⚙: なし
 
 
 ## 参考文献
