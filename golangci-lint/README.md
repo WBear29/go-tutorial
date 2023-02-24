@@ -118,6 +118,16 @@ func main() {
 
 [🔗](https://github.com/alingse/asasalint), [⚙](https://golangci-lint.run/usage/linters/#asasalint)
 
+#### bodyclose ✅
+
+httpのレスポンスbodyがCloseされていない箇所を検出する。  
+レスポンスbodyをCloseしない場合、コネクションがブロックされ再利用されず残ったままとなる。  
+新しい接続を行う度に新しいGoroutineとファイルディスクリプタを生成してしまい、メモリリークの要因となり得る。  
+[参考: Goのnet/httpのclientでなぜresponseBodyをClose、読み切らなくてはいけないのか](https://zenn.dev/cube/articles/4ce18a672fc991#responsebody%E3%82%92close%E3%81%97%E3%81%AA%E3%81%84%E3%81%A8%E3%81%84%E3%81%91%E3%81%AA%E3%81%84%E3%82%8F%E3%81%91)  
+バグの原因になるため、推奨。
+
+[🔗](https://github.com/timakin/bodyclose), ⚙: なし
+
 ## 参考文献
 
 * [golangci-lint](https://github.com/golangci/golangci-lint)
