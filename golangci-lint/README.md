@@ -128,6 +128,15 @@ httpのレスポンスbodyがCloseされていない箇所を検出する。
 
 [🔗](https://github.com/timakin/bodyclose), ⚙: なし
 
+#### containedctx ✅
+
+golangで推奨されていない、contextを構造体のフィールドに持っている箇所を検出する。  
+公式非推奨の構文のため、推奨。contextは第一引数に渡す形式で統一しておくのが良いと思われる。  
+
+
+[🔗](https://github.com/sivchari/containedctx), ⚙: なし
+
+
 ## 参考文献
 
 * [golangci-lint](https://github.com/golangci/golangci-lint)
