@@ -156,6 +156,16 @@ max-complexityとpackage-averageを設定可能です。
 
 [🔗](https://github.com/remyoudompheng/go-misc/tree/master/deadcode), ⚙: なし
 
+#### Decorder 🔧
+
+宣言順序がルール通りになっていない箇所を検出します。  
+ルールは設定可能でデフォルトは、type, const, var, funcの順となります。  
+const, var, typeをファイルに付き1つまでに制限します。  
+init funcをファイル内の最初の関数にすることを強制します。  
+上記ルールを設定したい場合に限るので、オプショナル
+
+[🔗](https://gitlab.com/bosi/decorder), [⚙](https://golangci-lint.run/usage/linters/#decorder)
+
 ## 参考文献
 
 * [golangci-lint](https://github.com/golangci/golangci-lint)
