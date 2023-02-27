@@ -142,6 +142,14 @@ contextを意図通りに渡せていない箇所を検出できるため、推�
 
 [🔗](https://github.com/kkHAIKE/contextcheck), ⚙: なし
 
+#### cyclop 🔧
+
+関数とパッケージの循環的複雑度(Cyclomatic complexity)をチェックし、設定した閾値を超えたことを検出します。  
+max-complexityとpackage-averageを設定可能です。  
+リファクタリングの際などの参考にできるため、オプショナル
+
+[🔗](https://github.com/bkielbasa/cyclop), [⚙](https://golangci-lint.run/usage/linters/#cyclop)
+
 
 ## 参考文献
 
