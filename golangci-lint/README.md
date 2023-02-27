@@ -150,6 +150,11 @@ max-complexityとpackage-averageを設定可能です。
 
 [🔗](https://github.com/bkielbasa/cyclop), [⚙](https://golangci-lint.run/usage/linters/#cyclop)
 
+#### deadcode
+
+現在保守されていないので、非推奨
+
+[🔗](https://github.com/remyoudompheng/go-misc/tree/master/deadcode), ⚙: なし
 
 ## 参考文献
 
